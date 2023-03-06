@@ -3,7 +3,7 @@ import C from './CountrySelector'
 import R from './RegionSelector'
 import styles from './styles.module.css'
 
-export const TestComponent = ({
+export const CountrySelector = ({
   label,
   showCountryFlag,
   showLabel,
@@ -13,6 +13,8 @@ export const TestComponent = ({
   onChange,
   disabled,
   shortCode,
+  leadingCountries,
+  allowcountry
 }) => {
   return (
     <div className={styles.test} style={{ padding: '10px' }}>
@@ -26,6 +28,8 @@ export const TestComponent = ({
         onChange={onChange}
         disabled={disabled}
         shortCode={shortCode}
+        leadingCountries={leadingCountries}
+        allowcountry={allowcountry}
       />
     </div>
   )
@@ -40,6 +44,8 @@ export const RegionSelector = ({
   labelProps,
   inputProps,
   shortCode,
+  customOptions,
+  whitelist,
 }) => {
   return (
     <div className={styles.test} style={{ padding: '10px' }}>
@@ -52,6 +58,8 @@ export const RegionSelector = ({
         labelProps={labelProps}
         inputProps={inputProps}
         shortCode={shortCode}
+        customOptions={customOptions}
+        whitelist={whitelist}
       />
     </div>
   )

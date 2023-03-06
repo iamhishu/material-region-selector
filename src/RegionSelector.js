@@ -11,7 +11,9 @@ const RegionSelector = ({
   inputProps,
   disabled,
   showLabel,
-  shortCode
+  shortCode,
+  customOptions,
+  whitelist
 }) => {
   const index = allCountries.findIndex(
     (c, i) =>
@@ -21,16 +23,90 @@ const RegionSelector = ({
 
   const [showRegionInput, setShowRegionInput] = useState(false)
   const [countryRegions, setCountryRegions] = useState([])
+
+  const [countries, setCountries] = useState(allCountries)
+
   useEffect(() => {
     if (index === -1) {
       setShowRegionInput(false)
     } else {
-      setCountryRegions(
-        allCountries[index][2].length > 0 ? allCountries[index][2] : []
-      )
-      setShowRegionInput(true)
+      if (typeof customOptions === 'object' && customOptions !== null) {
+        const newRegions = []
+        customOptions.map((item, index) => {
+          const nwR = [item.name, item.shortIdentifier]
+          newRegions.push(nwR)
+        })
+        setCountryRegions(
+          countries[index][2].length > 0
+            ? countries[index][2].concat(newRegions)
+            : []
+        )
+        setShowRegionInput(true)
+      } else {
+        const allRegions = [...allCountries]
+
+        console.log(allRegions, 'allRegions')
+        const whiteRegions = Object.keys(whitelist).map((region) =>
+          region.toLowerCase()
+        )
+
+        whiteRegions.map((region, index) => regionBot(region))
+
+        // const wr = []
+        //   .concat(...Object.values(whitelist))
+        //   .map((region) => region.toLowerCase())
+
+        // const fi = allCountries[index][2].filter(
+        //   (item) =>
+        //     wr.includes(item[1].toLowerCase()) ||
+        //     wr.includes(item[0].toLowerCase())
+        // )
+        setCountryRegions(
+          countries[index][2].length > 0 ? countries[index][2] : []
+        )
+        setShowRegionInput(true)
+      }
     }
   }, [index])
+
+  const regionBot = (bot) => {
+    const allRegions = [...allCountries]
+    const r = []
+    Object.keys(whitelist).map((region) => {
+      const existRegionPosition = allRegions.findIndex(
+        (obj) =>
+          obj[0].toLowerCase() === region.toLowerCase() ||
+          obj[1].toLowerCase() === region.toLowerCase()
+      )
+
+      if (existRegionPosition !== -1) {
+        ;[...allRegions[existRegionPosition][2]].map((item) => {
+          r.push([item[0].toLowerCase(), item[1].toLowerCase()])
+        })
+      }
+
+      const whiteListR = whitelist[region].map((item) => item.toLowerCase())
+
+      const filteredFruits = r
+        .filter(
+          (region) =>
+            whiteListR.includes(region[0].toLowerCase()) ||
+            whiteListR.includes(region[1].toLowerCase())
+        )
+        .map(
+          (item) =>
+            item[0].charAt(0).toUpperCase() + item[0].slice(1) ||
+            item[1].charAt(0).toUpperCase() + item[1].slice(1)
+        )
+
+      console.log(
+        allRegions[existRegionPosition][2],
+        'allRegions[existRegionPosition][2] '
+      )
+      // allRegions[existRegionPosition][2] = filteredFruits
+    })
+    console.log(allRegions, 'allRegions')
+  }
 
   return (
     <React.Fragment>
