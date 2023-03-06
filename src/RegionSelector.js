@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { SelectBoxWrapper, SelectBox, Option, Label } from './SelectBox'
 import { allCountries } from 'country-region-data'
-
+import { capitalize } from './common'
 const RegionSelector = ({
   country,
   label,
@@ -43,24 +43,9 @@ const RegionSelector = ({
         )
         setShowRegionInput(true)
       } else {
-        const allRegions = [...allCountries]
-
-        console.log(allRegions, 'allRegions')
-        const whiteRegions = Object.keys(whitelist).map((region) =>
-          region.toLowerCase()
-        )
-
-        whiteRegions.map((region, index) => regionBot(region))
-
-        // const wr = []
-        //   .concat(...Object.values(whitelist))
-        //   .map((region) => region.toLowerCase())
-
-        // const fi = allCountries[index][2].filter(
-        //   (item) =>
-        //     wr.includes(item[1].toLowerCase()) ||
-        //     wr.includes(item[0].toLowerCase())
-        // )
+        if (typeof whitelist === 'object' && whitelist !== null) {
+          regionBot()
+        }
         setCountryRegions(
           countries[index][2].length > 0 ? countries[index][2] : []
         )
@@ -70,42 +55,38 @@ const RegionSelector = ({
   }, [index])
 
   const regionBot = (bot) => {
-    const allRegions = [...allCountries]
-    const r = []
+    const con = [...allCountries]
+    const rg = []
     Object.keys(whitelist).map((region) => {
-      const existRegionPosition = allRegions.findIndex(
+      const i = con.findIndex(
         (obj) =>
           obj[0].toLowerCase() === region.toLowerCase() ||
           obj[1].toLowerCase() === region.toLowerCase()
       )
-
-      if (existRegionPosition !== -1) {
-        ;[...allRegions[existRegionPosition][2]].map((item) => {
-          r.push([item[0].toLowerCase(), item[1].toLowerCase()])
+      if (i !== -1) {
+        ;[...con[i][2]].map((item) => {
+          rg.push([item[0].toLowerCase(), item[1].toLowerCase()])
         })
       }
-
-      const whiteListR = whitelist[region].map((item) => item.toLowerCase())
-
-      const filteredFruits = r
+      const wlR = whitelist[region].map((item) => item.toLowerCase())
+      const fL = rg
         .filter(
           (region) =>
-            whiteListR.includes(region[0].toLowerCase()) ||
-            whiteListR.includes(region[1].toLowerCase())
+            wlR.includes(region[0].toLowerCase()) ||
+            wlR.includes(region[1].toLowerCase())
         )
-        .map(
-          (item) =>
-            item[0].charAt(0).toUpperCase() + item[0].slice(1) ||
-            item[1].charAt(0).toUpperCase() + item[1].slice(1)
+        .map((item) => capitalize(item[0]) || capitalize(item[1]))
+
+      if (fL.length > 0) {
+        const result = con[i][2].filter(
+          (region) => fL.includes(region[0]) || fL.includes(region[1])
         )
 
-      console.log(
-        allRegions[existRegionPosition][2],
-        'allRegions[existRegionPosition][2] '
-      )
-      // allRegions[existRegionPosition][2] = filteredFruits
+        con[i][2] = result
+      }
     })
-    console.log(allRegions, 'allRegions')
+
+    setCountries(con)
   }
 
   return (

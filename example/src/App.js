@@ -21,7 +21,7 @@ const App = () => {
       onChange={onChange}
       disabledCountrySelect={'india'}
       leadingCountries={["in"]}
-      allowcountry={["us", "af", "germany"]}
+      allowcountry={["us", "af", "germany", "in", "cn"]}
 
     />
 
@@ -44,7 +44,8 @@ const App = () => {
       // ]}
       whitelist={{
         CA: ["BC", "AB", "MB"],
-        US: ["Washington", "Oregon", "Illinois"]
+        US: ["washington", "Oregon", "Illinois"],
+        in: ['hp', "punjab"],
       }}
 
     />
