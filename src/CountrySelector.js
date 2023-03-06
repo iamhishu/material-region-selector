@@ -2,16 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { SelectBoxWrapper, SelectBox, Option, Label } from './SelectBox'
 import { allCountries } from 'country-region-data'
+import { countryToFlag } from "./common"
 
-function countryToFlag(isoCode) {
-  return typeof String.fromCodePoint !== 'undefined'
-    ? isoCode
-      .toUpperCase()
-      .replace(/./g, (char) =>
-        String.fromCodePoint(char.charCodeAt(0) + 127397)
-      )
-    : isoCode
-}
 const CountrySelector = ({
   label,
   showCountryFlag,

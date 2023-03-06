@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { SelectBoxWrapper, SelectBox, Option, Label } from './SelectBox'
 import { allCountries } from 'country-region-data'
 import { capitalize } from './common'
+import PropTypes from 'prop-types'
+
 const RegionSelector = ({
   country,
   label,
@@ -124,6 +126,16 @@ const RegionSelector = ({
       )}
     </React.Fragment>
   )
+}
+RegionSelector.propTypes = {
+  label: PropTypes.string,
+  // showLabel: PropTypes.bool,
+  labelProps: PropTypes.object,
+  inputProps: PropTypes.object,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool
+  // shortCode: PropTypes.bool,
 }
 
 export default RegionSelector

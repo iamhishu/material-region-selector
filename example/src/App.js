@@ -9,8 +9,12 @@ const App = () => {
   const onChange = (country, e) => setValue(country)
   const onStateChange = (state, e) => setState(state)
 
+
+  console.log(value, state)
+
   return <div style={{ width: '300px' }}>
     <CountrySelector
+      disabled
       showCountryFlag
       shortCode
 
@@ -28,7 +32,7 @@ const App = () => {
 
     <RegionSelector
       country={value}
-      shortCode
+      // shortCode
       showLabel
       label=""
       value={state}
