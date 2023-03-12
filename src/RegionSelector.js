@@ -15,7 +15,8 @@ const RegionSelector = ({
   showLabel,
   shortCode,
   customOptions,
-  whitelist
+  whitelist,
+  showDefaultOptionText,
 }) => {
   const index = allCountries.findIndex(
     (c, i) =>
@@ -30,7 +31,7 @@ const RegionSelector = ({
 
   useEffect(() => {
     if (index === -1) {
-      setShowRegionInput(false)
+      setShowRegionInput(true)
     } else {
       if (typeof customOptions === 'object' && customOptions !== null) {
         const newRegions = []
@@ -116,6 +117,7 @@ const RegionSelector = ({
             onChange={(e) => onChange(e.target.value, e)}
             {...inputProps}
           >
+            <option value=''>{showDefaultOptionText || 'Select Region'}</option>
             {countryRegions.map((option, index) => (
               <Option key={index} value={shortCode ? option[1] : option[0]}>
                 {option[0]}

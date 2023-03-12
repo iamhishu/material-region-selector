@@ -1,9 +1,5 @@
 # react-country-region-flag-selector
 
-This package is under-development.
-
-## About
-
 This library offers a set of React elements that allow for displaying interlinked dropdown menus for countries(with flag/without flag) and regions (select a country, and it displays the corresponding regions)
 
 ## Installation

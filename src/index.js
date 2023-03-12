@@ -46,6 +46,7 @@ export const RegionSelector = ({
   shortCode,
   customOptions,
   whitelist,
+  showDefaultOptionText
 }) => {
   return (
     <div className={styles.test} style={{ padding: '10px' }}>
@@ -60,6 +61,7 @@ export const RegionSelector = ({
         shortCode={shortCode}
         customOptions={customOptions}
         whitelist={whitelist}
+        showDefaultOptionText={showDefaultOptionText}
       />
     </div>
   )
