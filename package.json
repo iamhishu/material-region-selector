@@ -1,10 +1,10 @@
 {
-  "name": "material-region-selector",
+  "name": "react-country-region-flag-selector",
   "version": "1.0.0",
-  "description": "material-ui region-selector",
+  "description": "simple react-country-region-selector",
   "author": "iamhishu",
   "license": "MIT",
-  "repository": "iamhishu/material-region-selector",
+  "repository": "iamhishu/react-country-region-flag-selector",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",

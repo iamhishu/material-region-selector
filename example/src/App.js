@@ -14,7 +14,7 @@ const App = () => {
 
   return <div style={{ width: '300px' }}>
     <CountrySelector
-      disabled
+
       showCountryFlag
       shortCode
 
